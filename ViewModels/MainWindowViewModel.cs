@@ -163,7 +163,7 @@ namespace PokeSqueeze.ViewModels
                                 FFMpeg.Mute(videoProof.OldFilePath, videoProof.MuteFilePath);
                                 FFMpegArguments.FromFileInput(videoProof.MuteFilePath)
                                     .OutputToFile(videoProof.NewFilePath, false, options => options
-                                        .WithCustomArgument("-c:v h264_nvenc")
+                                        .WithCustomArgument("-c:v hevc_nvenc")
                                         .WithConstantRateFactor(25)
                                         .WithVariableBitrate(4)
                                         .WithVideoFilters(filterOptions => filterOptions
