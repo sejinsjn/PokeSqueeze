@@ -11,7 +11,7 @@ using System.Text;
 using System.Threading;
 using MVVMCore;
 
-namespace BarusuProofOrganizer.ViewModels
+namespace PokeSqueeze.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase, INotifyPropertyChanged
     {

@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Navigation;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -9,9 +11,15 @@ using System.Windows;
 namespace PokeSqueeze
 {
     /// <summary>
-    /// Interaction logic for App.xaml
+    /// Interaktionslogik für "App.xaml"
     /// </summary>
     public partial class App : Application
     {
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+
+            Navigator.Instance.NavigateToWindow(typeof(MainWindow), "PokeSqueeze");
+        }
     }
 }

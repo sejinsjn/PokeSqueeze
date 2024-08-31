@@ -3,10 +3,76 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PokeSqueeze"
+        xmlns:local="clr-namespace:BarusuProofOrganizer"
         mc:Ignorable="d"
+        ResizeMode="NoResize"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <ListBox x:Name="QueueListBox" Grid.Column="1" ItemsSource="{Binding QueueCopy}" SelectedItem="{Binding SelectedVideoProof, Mode=TwoWay}" Margin="20">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="0,2">
+                        <TextBlock Text="{Binding NewFilePath}" />
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            <ListBox.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Delete" Command="{Binding DeleteItemCommand}" CommandParameter="{Binding SelectedVideoProof}"/>
+                </ContextMenu>
+            </ListBox.ContextMenu>
+        </ListBox>
+
+
+        <Grid Grid.Row="1" Grid.Column="0" Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="4*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+
+            <CheckBox x:Name="CreateFolderCheckBox" Grid.Row="0" Content="Create Folder" IsChecked="{Binding CreateFolder}" VerticalAlignment="Center"/>
+            <StackPanel Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                <CheckBox x:Name="AddTradeHistoryCheckBox" Content="Add Trade History" IsChecked="{Binding AddTradeHistory}" VerticalAlignment="Center"/>
+                <RichTextBox x:Name="AddTradeHistoryTextBox" Height="150" MaxHeight="150" Width="340" HorizontalAlignment="Center" VerticalAlignment="Stretch" IsEnabled="{Binding AddTradeHistory}"
+                             TextChanged="AddTradeHistoryTextBox_TextChanged"/>
+            </StackPanel>
+            <StackPanel Grid.Row="2">
+                <CheckBox x:Name="RenameVideosCheckBox" Grid.Row="2" Content="Rename Videos" IsChecked="{Binding RenameVideos}" VerticalAlignment="Center"/>
+                <DockPanel Grid.Row="0">
+                    <Label Content="Start from " VerticalAlignment="Center"/>
+                    <TextBox x:Name="TernaryNumberStart" Text="{Binding TernaryNumberStart}" Width="50" MaxLength="3" HorizontalAlignment="Left" VerticalAlignment="Center"
+                             PreviewTextInput="TernaryNumberStart_PreviewTextInput" IsEnabled="{Binding RenameVideos}"/>
+                    <Label Content="File ending" VerticalAlignment="Center"/>
+                    <TextBox x:Name="FileEndingTextBox" Text="{Binding FileEnding}" Width="50" MaxLength="4" HorizontalAlignment="Left" VerticalAlignment="Center"
+                             PreviewTextInput="TernaryNumberStart_PreviewTextInput" IsEnabled="{Binding RenameVideos}"/>
+                </DockPanel>
+            </StackPanel>
+            <CheckBox x:Name="CompressVideosCheckBox" Grid.Row="3" Content="Compress Videos" IsChecked="{Binding CompressVideos}" VerticalAlignment="Center"/>
+
+            <StackPanel Grid.Row="4">
+                <ComboBox x:Name="GraphicsCard" SelectedItem="{Binding GraphicsCard}">
+                    <ComboBoxItem Content="AMD"/>
+                    <ComboBoxItem Content="Nvidia"/>
+                </ComboBox>
+            </StackPanel>
+
+            <DockPanel Grid.Row="5">
+                <Button x:Name="OpenFilesButton" Grid.Column="0" Height="25" Width="100" Content="Choose Files" Command="{Binding OpenFilesCommand}" Cursor="Hand" Margin="0,0,5,0"/>
+                <Button x:Name="AddToQueueButton" Height="25" Width="100" Content="Add to Queue" Command="{Binding AddToQueueCommand}" Cursor="Hand" HorizontalAlignment="Left" 
+                    VerticalAlignment="Center" Margin="0,0,5,0"/>
+                <Button x:Name="StartProcessButton" Height="25" Width="100" Content="Start" Command="{Binding StartProcessCommand}" Cursor="Hand" HorizontalAlignment="Left" 
+                    VerticalAlignment="Center"/>
+            </DockPanel>
+        </Grid>
     </Grid>
+
 </Window>
