@@ -158,6 +158,7 @@ namespace PokeSqueeze.ViewModels
 
                         if (videoProof.Compress)
                         {
+                            FFmpegInitializer.InitializeFFmpeg();
                             if (GraphicsCard.Contains("Nvidia")) 
                             {
                                 FFMpeg.Mute(videoProof.OldFilePath, videoProof.MuteFilePath);

@@ -90,6 +90,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="FFmpeg\FFmpegInitializer.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -154,9 +155,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="FFmpeg\ffmpeg.exe" />
-    <Content Include="FFmpeg\ffplay.exe" />
-    <Content Include="FFmpeg\ffprobe.exe" />
+    <EmbeddedResource Include="FFmpeg\ffmpeg.exe" />
+    <EmbeddedResource Include="FFmpeg\ffplay.exe" />
+    <EmbeddedResource Include="FFmpeg\ffprobe.exe" />
     <Content Include="MVVMCore\MVVMCore.csproj.user" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
