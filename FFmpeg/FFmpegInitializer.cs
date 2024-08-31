@@ -16,8 +16,8 @@ public class FFmpegInitializer
         }
 
         // Extract ffmpeg.exe and ffprobe.exe from the embedded resources
-        ExtractEmbeddedResource("YourNamespace.ffmpeg.exe", Path.Combine(tempPath, "ffmpeg.exe"));
-        ExtractEmbeddedResource("YourNamespace.ffprobe.exe", Path.Combine(tempPath, "ffprobe.exe"));
+        ExtractEmbeddedResource("PokeSqueeze.FFmpeg.ffmpeg.exe", Path.Combine(tempPath, "ffmpeg.exe"));
+        ExtractEmbeddedResource("PokeSqueeze.FFmpeg.ffprobe.exe", Path.Combine(tempPath, "ffprobe.exe"));
 
         // Set the binary folder for FFMpegCore to the temp directory
         GlobalFFOptions.Configure(options => options.BinaryFolder = tempPath);

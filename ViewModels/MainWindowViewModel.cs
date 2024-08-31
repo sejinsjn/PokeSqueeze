@@ -165,8 +165,10 @@ namespace PokeSqueeze.ViewModels
                                 FFMpegArguments.FromFileInput(videoProof.MuteFilePath)
                                     .OutputToFile(videoProof.NewFilePath, false, options => options
                                         .WithCustomArgument("-c:v hevc_nvenc")
-                                        .WithConstantRateFactor(25)
-                                        .WithVariableBitrate(4)
+                                        .WithCustomArgument("-b:v 1M")  // Set target bitrate to 1 Mbps
+                                        .WithCustomArgument("-preset slow")  // Use slower preset for better quality
+                                        .WithCustomArgument("-profile:v main")  // Use Main profile for better compatibility
+                                        .WithCustomArgument("-cq 30")  // Adjust CRF-like value if applicable
                                         .WithVideoFilters(filterOptions => filterOptions
                                             .Scale(VideoSize.FullHd))
                                         .WithFastStart())
