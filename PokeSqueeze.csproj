@@ -154,6 +154,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="FFmpeg\ffmpeg.exe" />
+    <Content Include="FFmpeg\ffplay.exe" />
+    <Content Include="FFmpeg\ffprobe.exe" />
     <Content Include="MVVMCore\MVVMCore.csproj.user" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
