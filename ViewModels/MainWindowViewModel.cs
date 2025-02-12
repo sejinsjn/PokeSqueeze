@@ -153,7 +153,7 @@ namespace PokeSqueeze.ViewModels
                         if (videoProof.TradeHistory != null && CreateFolder)
                             using (StreamWriter sw = File.CreateText(videoProof.NewFilePath.Replace(Path.GetFileName(videoProof.NewFilePath), "") + "TradeHistory.txt"))
                             {
-                                sw.Write(videoProof.TradeHistory);
+                                sw.Write(videoProof.TradeHistory); 
                             }
 
                         if (videoProof.Compress)
