@@ -59,10 +59,7 @@
             <CheckBox x:Name="CompressVideosCheckBox" Grid.Row="3" Content="Compress Videos" IsChecked="{Binding CompressVideos}" VerticalAlignment="Center"/>
 
             <StackPanel Grid.Row="4">
-                <ComboBox x:Name="GraphicsCard" SelectedItem="{Binding GraphicsCard}">
-                    <ComboBoxItem Content="AMD"/>
-                    <ComboBoxItem Content="Nvidia"/>
-                </ComboBox>
+                <ComboBox x:Name="GraphicsCard" ItemsSource="{Binding GraphicsCardList}" SelectedItem="{Binding GraphicsCard}" />
             </StackPanel>
 
             <DockPanel Grid.Row="5">

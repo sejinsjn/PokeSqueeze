@@ -53,7 +53,27 @@ namespace PokeSqueeze.ViewModels
         public string FileEnding { get; set; } = ".mp4";
         public string TradeHistory { get; set; } = "";
         public int TernaryNumberTracking { get; set; } = 0;
-        public string GraphicsCard { get; set; } = "AMD";
+
+        private List<string> graphicsCardList = new List<string>() { "AMD", "Nvidia"};
+
+        public List<string> GraphicsCardList
+        {
+            get => graphicsCardList;
+            set
+            {
+                graphicsCardList = value;
+            }
+        }
+
+        private string graphicsCard = "AMD"; 
+        public string GraphicsCard
+        {
+            get => graphicsCard;
+            set
+            {
+                graphicsCard = value;
+            }
+        }
 
         private VideoProof selectedVideoProof;
 
@@ -162,32 +182,51 @@ namespace PokeSqueeze.ViewModels
                             if (GraphicsCard.Contains("Nvidia")) 
                             {
                                 FFMpeg.Mute(videoProof.OldFilePath, videoProof.MuteFilePath);
-                                FFMpegArguments.FromFileInput(videoProof.MuteFilePath)
+                                FFMpegArguments
+                                    .FromFileInput(videoProof.MuteFilePath)
                                     .OutputToFile(videoProof.NewFilePath, false, options => options
-                                        .WithCustomArgument("-c:v hevc_nvenc")
-                                        .WithCustomArgument("-b:v 1M")  // Set target bitrate to 1 Mbps
-                                        .WithCustomArgument("-preset slow")  // Use slower preset for better quality
-                                        .WithCustomArgument("-profile:v main")  // Use Main profile for better compatibility
-                                        .WithCustomArgument("-cq 30")  // Adjust CRF-like value if applicable
+                                        .WithCustomArgument("-c:v hevc_nvenc")       // GPU Encoding
+                                        .WithCustomArgument("-preset p7")            // HQ Preset
+                                        .WithCustomArgument("-cq 22")                // Qualitätsfaktor (niedriger = besser)
+                                        .WithCustomArgument("-b:v 0")                // Bitrate ignored in CQ mode
+                                        .WithCustomArgument("-maxrate 2M")           // Optional: deckelt die Bitrate
+                                        .WithCustomArgument("-bufsize 4M")           // Puffergröße
+                                        .WithCustomArgument("-profile:v main")       // Kompatibilität
                                         .WithVideoFilters(filterOptions => filterOptions
                                             .Scale(VideoSize.FullHd))
+                                        .WithAudioCodec("aac")                       // Komprimiertes Audio
+                                        .WithAudioBitrate(128000)                    // 128 kbps AAC
                                         .WithFastStart())
                                     .ProcessSynchronously();
+
                                 File.Delete(videoProof.MuteFilePath);
                                 Queue.Remove(videoProof);
                             }
                             else
                             {
                                 FFMpeg.Mute(videoProof.OldFilePath, videoProof.MuteFilePath);
-                                FFMpegArguments.FromFileInput(videoProof.MuteFilePath)
+                                /**FFMpegArguments.FromFileInput(videoProof.MuteFilePath)
                                     .OutputToFile(videoProof.NewFilePath, false, options => options
                                         .WithVideoCodec(VideoCodec.LibX265)
-                                        .WithConstantRateFactor(25)
+                                        .WithConstantRateFactor(20)
                                         .WithVariableBitrate(4)
                                         .WithVideoFilters(filterOptions => filterOptions
                                             .Scale(VideoSize.FullHd))
                                         .WithFastStart())
+                                    .ProcessSynchronously();**/
+                                FFMpegArguments
+                                    .FromFileInput(videoProof.MuteFilePath)
+                                    .OutputToFile(videoProof.NewFilePath, false, options => options
+                                        .WithCustomArgument("-c:v hevc_amf")
+                                        //crashes with these parameters, test later
+                                        //.WithCustomArgument("-quality quality")    // HQ preset
+                                        //.WithCustomArgument("-rc vbr")             // Variable bitrate
+                                        //.WithCustomArgument("-vbr-quality 25")     // Quality factor
+                                        .WithVideoFilters(filterOptions => filterOptions
+                                            .Scale(VideoSize.FullHd))
+                                        .WithFastStart())
                                     .ProcessSynchronously();
+
                                 File.Delete(videoProof.MuteFilePath);
                                 Queue.Remove(videoProof);
                             }

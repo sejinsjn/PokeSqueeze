@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34616.47
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokeSqueeze", "PokeSqueeze.csproj", "{621E4A3D-7F09-4F6C-BF2A-9B1DBAFF7C7D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokeProof", "PokeProof.csproj", "{621E4A3D-7F09-4F6C-BF2A-9B1DBAFF7C7D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
